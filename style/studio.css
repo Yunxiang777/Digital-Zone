@@ -1,0 +1,108 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f5dc; /* 米白色 */
+}
+
+/** 主視覺圖 */
+img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    position: relative;
+}
+
+/** 滑鼠 */
+#mouse {
+    position: absolute;
+    border: 2px dashed rgba(232, 183, 109, 0.7);
+    background-color: rgba(237, 31, 31, 0.1);
+    cursor: pointer;
+    border-radius: 30%; /* 圓形 */
+}
+
+/** 鏡頭 */
+#lens {
+    position: absolute;
+    border: 2px dashed rgba(235, 19, 19, 0.588);
+    background-color: rgba(239, 28, 28, 0.335);
+    cursor: pointer;
+    border-radius: 30%; /* 圓形 */
+}
+
+/** 回大廳 */
+#backHall {
+    position: absolute;
+    border: 2px dashed rgba(218, 49, 49, 0.588);
+    background-color: rgba(222, 50, 50, 0.335);
+    cursor: pointer;
+    border-radius: 30%; /* 圓形 */
+}
+
+/** 讀卡機 */
+.card-reader {
+    position: absolute;
+    background-color: rgba(0, 255, 0, 0.2); 
+    cursor: pointer;
+    border: 2px dashed rgba(232, 183, 109, 0.937);  
+}
+
+/** 讀卡機 */
+#pos {
+    position: absolute;
+    background-color: rgba(192, 36, 194, 0.2); 
+    cursor: pointer;
+    border: 2px dashed rgba(232, 183, 109, 0.937);  
+}
+
+/** 鍵盤 */
+#keyBoard {
+    position: absolute;
+    background-color: rgba(243, 243, 12, 0.53); 
+    cursor: pointer;
+    border: 2px dashed rgba(232, 183, 109, 0.937);  
+}
+
+/** 螢幕 */
+#screen {
+    position: absolute;
+    background-color: rgba(98, 171, 231, 0.2); 
+    cursor: pointer;
+    border: 2px dashed rgba(232, 183, 109, 0.7);  
+}
+
+/** 電話 */
+#phone {
+    position: absolute;
+    background-color: rgba(69, 26, 225, 0.2); 
+    cursor: pointer;
+    border: 2px dashed rgba(232, 183, 109, 0.7);  
+}
+
+/** 白文字座標描述 */
+#coords {
+    position: absolute;
+    color: rgb(9, 6, 0);
+    font-size: 16px;
+    background-color: rgb(255, 255, 255);
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+
+/** 隱藏文字區塊 */
+#hidden-zone {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0);
+    display: none;
+    color: black;
+    font-size: 24px;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    padding: 20px;
+}

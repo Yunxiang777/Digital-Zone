@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Self-service-Account-Opening-Studio</title>
+    <link rel="stylesheet" href="/style/studio.css">
+</head>
+<body>
+    <!-- 主視覺圖 -->
+    <img id="image" src="./img/self-service.webp" alt="">
+
+    <!-- 滑鼠 -->
+    <div id="mouse"></div>
+
+    <!-- 鏡頭 -->
+    <div id="lens"></div>
+
+    <!-- 螢幕 -->
+    <div id="screen"></div>
+
+    <!-- 出單機 -->
+    <div id="pos"></div>
+
+    <!-- 電話 -->
+    <div id="phone"></div>
+
+    <!-- 回大廳 -->
+    <div id="backHall"></div>
+
+    <!-- 鍵盤 -->
+    <div id="keyBoard">11</div>
+
+    <!-- 左邊讀卡機 -->
+    <div id="card-reader-left" class="card-reader"></div>
+    <!-- 右邊讀卡機 -->
+    <div id="card-reader-right" class="card-reader"></div>
+
+    <!-- 不可見區域 (文字區塊) -->
+    <div id="hidden-zone"></div>
+
+    <div id="coords"></div>
+
+    <script>
+        const backHall = document.getElementById('backHall'); // 電話
+        const phone = document.getElementById('phone'); // 電話
+        const mouse = document.getElementById('mouse'); // 滑鼠
+        const keyBoard = document.getElementById('keyBoard'); // 鍵盤
+        const pos = document.getElementById('pos'); // 出單機
+        const lens = document.getElementById('lens'); // 鏡頭
+        const screen = document.getElementById('screen'); // 螢幕
+        const hiddenZone = document.getElementById('hidden-zone'); // 隱藏區塊 (文字說明區塊)
+        const image = document.getElementById('image'); // 主視覺圖
+        const card_reader_left = document.getElementById('card-reader-left'); // 左邊讀卡機
+        const card_reader_right = document.getElementById('card-reader-right'); // 左邊讀卡機
+        const coordsDiv = document.getElementById('coords'); // X，Y座標文字
+        const rect = image.getBoundingClientRect(); //圖片區域
+
+        /** =========================== 背景可選擇區域顏色顯示 start =========================== */
+
+        // 左邊讀卡機
+        function card_reader_left_show() {
+            makeSquare([
+                { x: 15.81, y: 51.04 }, 
+                { x: 25.30, y: 51.18 }, 
+                { x: 21.70, y: 76.29 }, 
+                { x: 11.66, y: 75.74 }, 
+            ], card_reader_left);
+        }
+
+        // 右邊讀卡機
+        function card_reader_right_show() {
+            makeSquare([
+                { x: 67.09, y: 59.41 }, 
+                { x: 73.52, y: 60.37 },  
+                { x: 75.09, y: 79.58 }, 
+                { x: 68.74, y: 79.31 },  
+            ], card_reader_right);
+        }
+
+        // 文字區塊
+        function textBox() {
+            const zoneWidth = rect.width * (21.15 - 9.2) / 100;
+            const zoneHeight = rect.height * (42.85 - 2.74) / 100;
+            const zoneLeft = rect.left + rect.width * 3.2 / 100;
+            const zoneTop = rect.top + rect.height * 2.44 / 100;
+            Object.assign(hiddenZone.style, {
+                width: `${zoneWidth}px`,
+                height: `${zoneHeight}px`,
+                left: `${zoneLeft}px`,
+                top: `${zoneTop}px`,
+                display: 'block'
+            });
+        }
+
+        // 滑鼠
+        function showMouse() {
+            const areaWidth = rect.width * (80 - 66) / 100;
+            const areaHeight = rect.height * (93 - 82) / 100;
+            const areaLeft = rect.left + rect.width * 65 / 100;
+            const areaTop = rect.top + rect.height * 82 / 100;
+            Object.assign(mouse.style, {
+                width: `${areaWidth}px`,
+                height: `${areaHeight}px`,
+                left: `${areaLeft}px`,
+                top: `${areaTop}px`,
+                display: 'block'
+            });
+        }
+
+        // 鏡頭
+        function showLens() {
+            const centerX = 50.78;
+            const centerY = 7.55;
+            const radius = 3.5;
+            const centerLeft = rect.left + rect.width * (centerX / 100);
+            const centerTop = rect.top + rect.height * (centerY / 100);
+            const circleRadius = rect.width * (radius / 100); 
+            Object.assign(lens.style, {
+                width: `${circleRadius * 2}px`,
+                height: `${circleRadius * 2}px`,
+                left: `${centerLeft - circleRadius}px`,
+                top: `${centerTop - circleRadius}px`,
+                borderRadius: '50%',
+                position: 'absolute',
+                display: 'block'
+            });
+        }
+
+        // 回大廳
+        function showBackHall() {
+            const centerX = 92.78;
+            const centerY = 9.55;
+            const radius = 3;
+            const centerLeft = rect.left + rect.width * (centerX / 100);
+            const centerTop = rect.top + rect.height * (centerY / 100);
+            const circleRadius = rect.width * (radius / 100); 
+            
+            Object.assign(backHall.style, {
+                width: `${circleRadius * 2}px`,
+                height: `${circleRadius * 2}px`,
+                left: `${centerLeft - circleRadius}px`,
+                top: `${centerTop - circleRadius}px`,
+                borderRadius: '50%',
+                position: 'absolute',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                textAlign: 'center',
+                verticalAlign: 'middle',
+                lineHeight: `${circleRadius * 2}px`,
+                fontWeight: 'bold'
+            });
+            backHall.innerText = '回大廳'; // 設定文字內容
+        }
+
+        // 螢幕
+        function showScreen() {
+            makeSquare([
+                { x: 37.79, y: 18.29 },
+                { x: 65, y: 18.29 },
+                { x: 65, y: 56.16 },
+                { x: 37.79, y: 56.16 },
+            ], screen);
+        }
+
+        // 出單POS機
+        function showPos() {
+            makeSquare([
+                { x: 74.58, y: 52.49 },
+                { x: 85.28, y: 52.49 },
+                { x: 90.20, y: 76.23 },
+                { x: 78.89, y: 76.23 },
+            ], pos);
+        }
+
+        // 鍵盤
+        function showKeyBoard() {
+            makeSquare([
+                { x: 36.34, y: 84.57 },
+                { x: 62.74, y: 84.57 },
+                { x: 63.95, y: 90.64 },
+                { x: 35.53, y: 91.07 },
+            ], keyBoard);
+        }
+
+        // 電話
+        function showPhone() {
+            makeSquare([
+                { x: 26.01, y: 61.06 }, 
+                { x: 30.01, y: 61.06 },
+                { x: 29.61, y: 76.43 },
+                { x: 25.69, y: 76.15 },
+            ], phone);
+        }
+
+        function makeSquare(points, target) {
+            const polygonPoints = points.map(point => {
+                return `${point.x}% ${point.y}%`;
+            }).join(", ");
+            target.style.clipPath = `polygon(${polygonPoints})`;
+            target.style.display = 'block';
+            target.style.position = 'absolute';
+            target.style.width = `${rect.width}px`;
+            target.style.height = `${rect.height}px`;
+            target.style.left = `${rect.left}px`;
+            target.style.top = `${rect.top}px`;
+        }
+
+        const functionsToRunOnLoad = [
+            showPhone,
+            showKeyBoard,
+            showPos,
+            showScreen,
+            showLens,
+            card_reader_right_show,
+            card_reader_left_show,
+            showMouse,
+            textBox,
+            showBackHall
+        ];
+
+        window.addEventListener('load', () => {
+            functionsToRunOnLoad.forEach(fn => fn());
+        });
+
+        /** =========================== 背景可選擇區域顏色顯示 end =========================== */
+
+        /** =========================== 點擊事件 start =========================== */
+        // mouse
+        mouse.addEventListener('click', () => {
+            showMessage("電腦滑鼠，用來操控指標的輸入設備");
+        });
+
+        // 左邊讀卡機
+        card_reader_left.addEventListener('click', () => {
+            showMessage("讀卡機，用於讀取金融卡、信用卡、健保卡等資料。進行支付、身份驗證或查詢等操作。");
+        });
+
+        // 右邊讀卡機
+        card_reader_right.addEventListener('click', () => {
+            showMessage("讀卡機，用於讀取金融卡、信用卡、健保卡等資料。進行支付、身份驗證或查詢等操作。");
+        });
+
+        // 鏡頭
+        lens.addEventListener('click', () => {
+            showMessage("鏡頭，用於人臉辨識，核身機制，證件掃描，人像拍照，錄影等資料驗證");
+        });
+
+        // 螢幕
+        screen.addEventListener('click', () => {
+            showMessage("觸控螢幕，顯示資料等開戶資訊，也包含簽名板功能，文字輸入，文件簽署等");
+        });
+
+        // 出單pos機器
+        pos.addEventListener('click', () => {
+            showMessage("出單POS機，包含收據，單據，個人訊息，資料核對等文件出單機");
+        });
+
+        // 鍵盤
+        keyBoard.addEventListener('click', () => {
+            showMessage("輸入文字訊息，帳號輸入，密碼輸入，密碼核對，身分驗證等");
+        });
+
+        // 電話
+        phone.addEventListener('click', () => {
+            showMessage("客服電話，用於緊急事件聯絡，需求專人，協助操作等必要設備");
+        });
+
+        // 回大廳
+        backHall.addEventListener('click', () => {
+            window.location.href = '/hall.html'; 
+        });
+   
+        // 點擊除了目標座標其他區域時，恢復原狀
+        image.addEventListener('click', function(event) {
+            hiddenZone.style.backgroundColor = 'rgba(255, 255, 255, 0)';
+            hiddenZone.style.color = 'transparent'; 
+            hiddenZone.style.border = 'none';
+            //文字座標確認
+            // const rect = image.getBoundingClientRect();
+            // const xPercent = ((event.clientX - rect.left) / rect.width) * 100;
+            // const yPercent = ((event.clientY - rect.top) / rect.height) * 100;
+            // coordsDiv.style.left = `${event.clientX}px`;
+            // coordsDiv.style.top = `${event.clientY}px`;
+            // coordsDiv.innerText = `X: ${xPercent.toFixed(2)}%, Y: ${yPercent.toFixed(2)}%`;
+        });
+
+        // 顯示文字
+        function showMessage(text) {
+            Object.assign(hiddenZone.style, {
+                backgroundColor: 'rgba(255, 255, 255, 0.4)',
+                color: 'black',
+                textAlign: 'center',
+                display: 'block',
+                border: '2px solid black'
+            });
+            hiddenZone.innerText = text;
+        }
+        /** =========================== 點擊事件 end =========================== */
+    </script>
+</body>
+</html>

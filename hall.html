@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hall</title>
+    <link rel="stylesheet" href="/style/hall.css">
+</head>
+<body>
+    <!-- 主視覺圖 -->
+    <img id="image" src="./img/hall.webp" alt="">
+
+    <!-- 操作室 -->
+    <div id="operatingRoom"></div>
+
+    <!-- 回首頁 -->
+    <div id="backHome"></div>
+
+    <script>
+        const operatingRoom = document.getElementById('operatingRoom'); // 操作室
+        const backHome = document.getElementById('backHome'); // 回首頁
+        const rect = image.getBoundingClientRect(); //圖片區域
+        /** =========================== 背景可選擇區域顏色顯示 start =========================== */
+
+        // 回大廳
+        function showOperatingRoom() {
+            const centerX = 50;
+            const centerY = 50;
+            const radius = 3;
+            const centerLeft = rect.left + rect.width * (centerX / 100);
+            const centerTop = rect.top + rect.height * (centerY / 100);
+            const circleRadius = rect.width * (radius / 100); 
+            
+            Object.assign(operatingRoom.style, {
+                width: `${circleRadius * 2}px`,
+                height: `${circleRadius * 2}px`,
+                left: `${centerLeft - circleRadius}px`,
+                top: `${centerTop - circleRadius}px`,
+                borderRadius: '50%',
+                position: 'absolute',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                textAlign: 'center',
+                verticalAlign: 'middle',
+                lineHeight: `${circleRadius * 2}px`,
+                fontWeight: 'bold'
+            });
+            operatingRoom.innerText = '操作室';
+        }
+
+        // 回首頁
+        function showBackHome() {
+            const centerX = 92;
+            const centerY = 10;
+            const radius = 3;
+            const centerLeft = rect.left + rect.width * (centerX / 100);
+            const centerTop = rect.top + rect.height * (centerY / 100);
+            const circleRadius = rect.width * (radius / 100); 
+            
+            Object.assign(backHome.style, {
+                width: `${circleRadius * 2}px`,
+                height: `${circleRadius * 2}px`,
+                left: `${centerLeft - circleRadius}px`,
+                top: `${centerTop - circleRadius}px`,
+                borderRadius: '50%',
+                position: 'absolute',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                textAlign: 'center',
+                verticalAlign: 'middle',
+                lineHeight: `${circleRadius * 2}px`,
+                fontWeight: 'bold'
+            });
+            backHome.innerText = '回首頁';
+        }
+
+        const functionsToRunOnLoad = [
+            showOperatingRoom,
+            showBackHome
+        ];
+
+        window.addEventListener('load', () => {
+            functionsToRunOnLoad.forEach(fn => fn());
+        });
+
+        /** =========================== 背景可選擇區域顏色顯示 end =========================== */
+
+        /** =========================== 點擊事件 start =========================== */
+        
+        // 操作室
+        operatingRoom.addEventListener('click', () => {
+            window.location.href = '/studio.html'; 
+        });
+
+        // 回首頁
+        backHome.addEventListener('click', () => {
+            window.location.href = '/index.html'; 
+        });
+
+        /** =========================== 點擊事件 end =========================== */
+    </script>
+</body>
+</html>
